@@ -71,12 +71,8 @@ clor.addEventListener('input', e => {
 })
 
 function listCars(cars) {
+    clearHTML()
     const container = document.querySelector('#resultado')
-
-    while(container.firstChild) {
-        container.removeChild(container.firstChild)
-    }
-
     cars.forEach(car => {
         const carHTML = document.createElement('p')
         carHTML.innerHTML = `
@@ -86,6 +82,21 @@ function listCars(cars) {
     })
 }
 
+function clearHTML() {
+    const container = document.querySelector('#resultado')
+    while(container.firstChild) {
+        container.removeChild(container.firstChild)
+    }
+}
+
+function clearResults() {
+    clearHTML()
+
+    const noResults = document.createElement('div')
+    noResults.classList.add('alerta', 'error')
+    noResults.appendChild(document.createTextNode('No hay restultados'))
+    document.querySelector('#resultado').appendChild(noResults)
+}
 function carFilter() {
     const result = getCars()
                     .filter(brandFilter)
@@ -99,7 +110,7 @@ function carFilter() {
     if (result.length) {
         listCars(result)
     } else {
-        alert('No hay resultados.')
+        clearResults()
     }
 }
 
