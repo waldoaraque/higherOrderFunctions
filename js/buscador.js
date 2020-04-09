@@ -40,6 +40,18 @@ year.addEventListener('#year', e => {
     carFilter()
 })
 
+const _min = document.querySelector('#minimo')
+_min.addEventListener('input', e => {
+    dataSrch.min = Number(e.target.value)
+    carFilter()
+})
+
+const _max = document.querySelector('#maximo')
+_max.addEventListener('input', e => {
+    dataSrch.max = Number(e.target.value)
+    carFilter()
+})
+
 function listCars(cars) {
     const container = document.querySelector('#resultado')
 
@@ -60,6 +72,8 @@ function carFilter() {
     const result = getCars()
                     .filter(brandFilter)
                         .filter(yearFilter)
+                            .filter(minFilter)
+                                .filter(maxFilter)
     console.log(result)
     if (result.length) {
         listCars(result)
@@ -83,3 +97,7 @@ function yearFilter(car) {
         return car
     }
 }
+
+const minFilter = car => dataSrch.min ? car.precio >= dataSrch.min : car
+
+const maxFilter = car => dataSrch.max ? car.precio <= dataSrch.max : car
