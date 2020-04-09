@@ -12,11 +12,26 @@ for(let i = max; i >  min; i--) {
     document.querySelector('#year').appendChild(option);
 }
 
+let dataSrch = {
+    marca: '',
+    year:'',
+    min: '',
+    max: '',
+    puertas: '',
+    transmision: '',
+    color: ''
+}
+
 const cars = getCars()
-console.log(cars)
 
 document.addEventListener('DOMContentLoaded', () => {
     listCars(cars)
+})
+
+const marca = document.querySelector('#marca')
+marca.addEventListener('input', e => {
+    dataSrch.marca = e.target.value
+    carFilter()
 })
 
 function listCars(cars) {
@@ -29,4 +44,17 @@ function listCars(cars) {
         `
         container.appendChild(carHTML)
     })
+}
+
+function carFilter() {
+    const result = getCars().filter(brandFilter)
+    console.log(result)
+}
+
+function brandFilter(car) {
+    if (dataSrch.marca) {
+        return car.marca === dataSrch.marca
+    } else {
+
+    }
 }
