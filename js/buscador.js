@@ -34,8 +34,18 @@ marca.addEventListener('input', e => {
     carFilter()
 })
 
+const year = document.querySelector('#year')
+year.addEventListener('#year', e => {
+    dataSrch.year = Number(e.target.value)
+    carFilter()
+})
+
 function listCars(cars) {
     const container = document.querySelector('#resultado')
+
+    while(container.firstChild) {
+        container.removeChild(container.firstChild)
+    }
 
     cars.forEach(car => {
         const carHTML = document.createElement('p')
@@ -47,14 +57,29 @@ function listCars(cars) {
 }
 
 function carFilter() {
-    const result = getCars().filter(brandFilter)
+    const result = getCars()
+                    .filter(brandFilter)
+                        .filter(yearFilter)
     console.log(result)
+    if (result.length) {
+        listCars(result)
+    } else {
+        alert('No hay resultados.')
+    }
 }
 
 function brandFilter(car) {
     if (dataSrch.marca) {
         return car.marca === dataSrch.marca
     } else {
+        return car
+    }
+}
 
+function yearFilter(car) {
+    if (dataSrch.year) {
+        return car.year === dataSrch.year
+    } else {
+        return car
     }
 }
