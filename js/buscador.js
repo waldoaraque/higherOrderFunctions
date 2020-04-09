@@ -52,6 +52,24 @@ _max.addEventListener('input', e => {
     carFilter()
 })
 
+const doors = document.querySelector('#puertas')
+doors.addEventListener('input', e => {
+    dataSrch.puertas = Number(e.target.value)
+    carFilter()
+})
+
+const trans = document.querySelector('#transmision')
+trans.addEventListener('input', e => {
+    dataSrch.transmision = e.target.value
+    carFilter()
+})
+
+const clor = document.querySelector('#color')
+clor.addEventListener('input', e => {
+    dataSrch.color = e.target.value
+    carFilter()
+})
+
 function listCars(cars) {
     const container = document.querySelector('#resultado')
 
@@ -74,6 +92,9 @@ function carFilter() {
                         .filter(yearFilter)
                             .filter(minFilter)
                                 .filter(maxFilter)
+                                    .filter(doorsFilter)
+                                        .filter(transFilter)
+                                            .filter(colorFilter)
     console.log(result)
     if (result.length) {
         listCars(result)
@@ -101,3 +122,9 @@ function yearFilter(car) {
 const minFilter = car => dataSrch.min ? car.precio >= dataSrch.min : car
 
 const maxFilter = car => dataSrch.max ? car.precio <= dataSrch.max : car
+
+const doorsFilter = car => dataSrch.puertas ? car.puertas === dataSrch.puertas : car 
+
+const transFilter = car => dataSrch.transmision ? car.transmision === dataSrch.transmision : car
+
+const colorFilter = car => dataSrch.color ? car.color === dataSrch.color : car
